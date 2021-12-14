@@ -1,13 +1,11 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import { useLoaderData, json, Link } from "remix";
 
-import { client } from "~/graphql";
-
-import { QUERY_CHARACTERS } from "~/graphql/gql";
-import type { Query } from "~/graphql/gql";
+import { queryCharacters } from "~/graphql/queries";
+import type { Query } from "~/graphql/types";
 
 export let loader: LoaderFunction = async () => {
-  const { data } = await client.query<Query>(QUERY_CHARACTERS).toPromise();
+  const { data } = await queryCharacters();
   return json(data?.characters);
 };
 
@@ -38,7 +36,7 @@ export default function Index() {
         <ul>
           {characters?.map(character => (
             <li key={character.id}>
-              <Link to={`/characters/${character.id}`}>
+              <Link to={`/characters/${character.id}`} prefetch="intent">
                 {character.name}
               </Link>
             </li>

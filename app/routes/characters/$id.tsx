@@ -1,16 +1,14 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import { useLoaderData, json, Link } from "remix";
 
-import { client } from "~/graphql";
-
-import { QUERY_CHARACTER } from "~/graphql/gql";
-import type { Query } from "~/graphql/gql";
+import { queryCharacter } from "~/graphql/queries";
+import type { Query } from "~/graphql/types";
 
 export let meta: MetaFunction = ({ data }: { data: LoaderData }) => {
    if (!data) {
-    return {
-      title: "No joke",
-      description: "No joke found"
+    return { 
+      title: "No character found",
+      description: "No character found"
     };
   }
 
@@ -23,9 +21,7 @@ export let meta: MetaFunction = ({ data }: { data: LoaderData }) => {
 export let loader: LoaderFunction = async ({ params }) => {
   let id = +params.id!;
 
-  const { data, error } = await client
-    .query<Query>(QUERY_CHARACTER, { id })
-    .toPromise();
+  const { data, error } = await queryCharacter(id);
     
   if (data?.character) {
     return json(data.character);
@@ -43,6 +39,8 @@ export default function Index() {
 
   return (
     <main>
+      <Link to="/">Back to characters</Link>
+      
       <h3>{character?.name}</h3>
       <img src={`${character?.image}`} alt={`${character?.name}`}/>
     </main>

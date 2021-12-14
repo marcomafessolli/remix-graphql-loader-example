@@ -64,29 +64,3 @@ export type QueryCharacterArgs = {
 export type QueryCharactersArgs = {
   page?: InputMaybe<Scalars['Int']>;
 };
-
-export const QUERY_CHARACTERS = gql`
-  query characters($page: Int) {
-    characters(page: $page) {
-      info {
-        ...InfoFields
-      }
-      results {
-        ...CharacterFields
-      }
-    }
-  }
-
-  ${InfoFieldsFragment}
-  ${CharacterFieldsFragment}
-`;
-
-export const QUERY_CHARACTER = gql`
-  query character($id: ID!) {
-    character(id: $id) {
-      ...CharacterFields
-    }
-  }
-
-  ${CharacterFieldsFragment}
-`;
