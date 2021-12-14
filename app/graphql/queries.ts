@@ -29,10 +29,14 @@ export const QUERY_CHARACTER = gql`
   ${CharacterFieldsFragment}
 `;
 
-export async function queryCharacters() {
-  return await client.query<Query>(QUERY_CHARACTERS).toPromise();
+export async function queryCharacters(page?: string | number | null) {
+  if (!page) {
+    page = 1;
+  }  
+
+  return await client.query<Query>(QUERY_CHARACTERS, { page: +page }).toPromise();
 }
 
-export async function queryCharacter(id: number) {
-  return await client.query<Query>(QUERY_CHARACTER, { id }).toPromise();
+export async function queryCharacter(id: string | number)  {
+  return await client.query<Query>(QUERY_CHARACTER, { id: +id }).toPromise();
 }

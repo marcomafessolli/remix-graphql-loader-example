@@ -1,25 +1,27 @@
-import type { MetaFunction, LoaderFunction } from "remix";
+import type { MetaFunction, LoaderFunction, } from "remix";
 import { useLoaderData, json, Link } from "remix";
+
+import { useNavigate } from "remix";
 
 import { queryCharacter } from "~/graphql/queries";
 import type { Query } from "~/graphql/types";
 
-export let meta: MetaFunction = ({ data }: { data: LoaderData }) => {
-   if (!data) {
+export let meta: MetaFunction = ({ data, params }) => {
+  if (!data) {
     return { 
-      title: "No character found",
+      title: `Character ${params.id} found`,
       description: "No character found"
     };
   }
 
   return {
-    title: `${data.name} - Remix + GraphQL`,
+    title: `${data.name}`,
     description: `${data.name} detail page`
   };
 };
 
 export let loader: LoaderFunction = async ({ params }) => {
-  let id = +params.id!;
+  let id = params.id!;
 
   const { data, error } = await queryCharacter(id);
     
@@ -34,12 +36,15 @@ export let loader: LoaderFunction = async ({ params }) => {
 
 type LoaderData = Query['character'];
 
-export default function Index() {
+export default function Index({  }) {
   let character = useLoaderData<LoaderData>();
+  let navigate = useNavigate();
 
   return (
     <main>
-      <Link to="/">Back to characters</Link>
+      <Link to={`/`} onClick={() => { navigate(-1) }}>
+        Back to characters
+      </Link>
       
       <h3>{character?.name}</h3>
       <img src={`${character?.image}`} alt={`${character?.name}`}/>

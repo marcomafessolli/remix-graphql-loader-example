@@ -1,5 +1,4 @@
 import {
-  Link,
   Links,
   LiveReload,
   Meta,
@@ -47,6 +46,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 
 export function CatchBoundary() {
   let caught = useCatch();
+  console.error(caught);
 
   let message;
   switch (caught.status) {
@@ -69,7 +69,7 @@ export function CatchBoundary() {
   }
 
   return (
-    <Document title={`${caught.status} ${caught.statusText}`}>
+    <Document title={`${caught.statusText}`}>
       <Layout>
         <h1>
           {caught.status}: {caught.statusText}
@@ -92,8 +92,8 @@ function Document({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        {title ? <title>{title}</title> : null}
         <Meta />
+        {title ? <title>{title}</title> : null}
         <Links />
       </head>
       <body>
