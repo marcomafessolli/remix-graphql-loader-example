@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import { client } from './client';
+import { client } from '~/utils/gql.server';
 
 import { InfoFieldsFragment, CharacterFieldsFragment, Query } from './types';
 
