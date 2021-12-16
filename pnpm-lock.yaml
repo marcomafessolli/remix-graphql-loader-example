@@ -7,6 +7,7 @@ specifiers:
   '@types/react': ^17.0.24
   '@types/react-dom': ^17.0.9
   '@urql/core': ^2.3.6
+  '@urql/exchange-graphcache': ^4.3.6
   graphql: ^16.1.0
   graphql-tag: ^2.12.6
   react: ^17.0.2
@@ -18,6 +19,7 @@ dependencies:
   '@remix-run/react': 1.0.6_react-dom@17.0.2+react@17.0.2
   '@remix-run/serve': 1.0.6_react-dom@17.0.2+react@17.0.2
   '@urql/core': 2.3.6_graphql@16.1.0
+  '@urql/exchange-graphcache': 4.3.6_graphql@16.1.0
   graphql: 16.1.0
   graphql-tag: 2.12.6_graphql@16.1.0
   react: 17.0.2
@@ -64,10 +66,8 @@ packages:
     resolution: {integrity: sha512-82cpyJyKRoQoRi+14ibCeGPu0CwypgtBAdBhq1WfvagpCZNKqwXbKwXllYSMG91DhmG4jt9gN8eP6lGOtozuaw==}
     dev: true
 
-  /@graphql-typed-document-node/core/3.1.1_graphql@16.1.0:
+  /@graphql-typed-document-node/core/3.1.1:
     resolution: {integrity: sha512-NQ17ii0rK1b34VZonlmT2QMJFI70m0TRwbknO/ihlbatXyaktDhN/98vBiUU6kNBPljqGqyIrl2T4nY2RpFANg==}
-    peerDependencies:
-      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       graphql: 16.1.0
     dev: false
@@ -90,7 +90,6 @@ packages:
 
   /@remix-run/dev/1.0.6:
     resolution: {integrity: sha512-DlF8Km9V3jTsJwLPLIwf9Z49HycPBO1lHVHxPVpKH8XSXwg9r0y9IlLxjp7RhQ5aZQcaneva+tHdQ6ZOX4XqpQ==}
-    hasBin: true
     dependencies:
       cacache: 15.3.0
       chokidar: 3.5.2
@@ -149,7 +148,6 @@ packages:
 
   /@remix-run/serve/1.0.6_react-dom@17.0.2+react@17.0.2:
     resolution: {integrity: sha512-whuAXVqUpzK+MNNyp6Ig/nvefy+ZfHv2VYvuPBLPHCKKNuRz1nKRspqIbdNoSpU34s7lbw1v5biNEapCuoKYTw==}
-    hasBin: true
     dependencies:
       '@remix-run/express': 1.0.6_7d7d58cb12e5375810022547109f543f
       compression: 1.7.4
@@ -320,7 +318,17 @@ packages:
     peerDependencies:
       graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
-      '@graphql-typed-document-node/core': 3.1.1_graphql@16.1.0
+      '@graphql-typed-document-node/core': 3.1.1
+      graphql: 16.1.0
+      wonka: 4.0.15
+    dev: false
+
+  /@urql/exchange-graphcache/4.3.6_graphql@16.1.0:
+    resolution: {integrity: sha512-RDEi1954lcnwBK2dwQGaxOInuebZrRliz2v7aAuQasj49N9bWYrlSkBfELG14EzOL7NI23IUaeLeaDN7MouDJg==}
+    peerDependencies:
+      graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@urql/core': 2.3.6_graphql@16.1.0
       graphql: 16.1.0
       wonka: 4.0.15
     dev: false
@@ -333,10 +341,8 @@ packages:
       negotiator: 0.6.2
     dev: false
 
-  /acorn-jsx/5.3.2_acorn@8.6.0:
+  /acorn-jsx/5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
-    peerDependencies:
-      acorn: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       acorn: 8.6.0
     dev: true
@@ -344,7 +350,6 @@ packages:
   /acorn/8.6.0:
     resolution: {integrity: sha512-U1riIR+lBSNi3IbxtaHOIKdH8sLFv3NYfNv8sg7ZsNhcfl4HF2++BfqqrNAxoCLQW1iiylOj76ecnaUxz+z9yw==}
     engines: {node: '>=0.4.0'}
-    hasBin: true
     dev: true
 
   /aggregate-error/3.1.0:
@@ -385,7 +390,6 @@ packages:
 
   /astring/1.8.1:
     resolution: {integrity: sha512-Aj3mbwVzj7Vve4I/v2JYOPFkCGM2YS7OqQTNSxmUR+LECRpokuPgAYghePgr6SALDo5bD5DlfbSaYjOzGJZOLQ==}
-    hasBin: true
     dev: true
 
   /asynckit/0.4.0:
@@ -907,7 +911,6 @@ packages:
 
   /esbuild/0.13.14:
     resolution: {integrity: sha512-xu4D+1ji9x53ocuomcY+KOrwAnWzhBu/wTEjpdgZ8I1c8i5vboYIeigMdzgY1UowYBKa2vZgVgUB32bu7gkxeg==}
-    hasBin: true
     requiresBuild: true
     optionalDependencies:
       esbuild-android-arm64: 0.13.14
@@ -1395,7 +1398,6 @@ packages:
 
   /js-yaml/4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
-    hasBin: true
     dependencies:
       argparse: 2.0.1
     dev: true
@@ -1403,7 +1405,6 @@ packages:
   /jsesc/3.0.2:
     resolution: {integrity: sha512-xKqzzWXDttJuOcawBt4KnKHHIf5oQ/Cxax+0PWFG+DFDgHNAdi+TXECADI+RYiFUMmx8792xsMbbgXj4CwnP4g==}
     engines: {node: '>=6'}
-    hasBin: true
     dev: false
 
   /json-buffer/3.0.1:
@@ -1417,7 +1418,6 @@ packages:
   /json5/2.2.0:
     resolution: {integrity: sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==}
     engines: {node: '>=6'}
-    hasBin: true
     dependencies:
       minimist: 1.2.5
     dev: true
@@ -1475,7 +1475,6 @@ packages:
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
-    hasBin: true
     dependencies:
       js-tokens: 4.0.0
     dev: false
@@ -1723,7 +1722,7 @@ packages:
     resolution: {integrity: sha512-TZZRZgeHvtgm+IhtgC2+uDMR7h8eTKF0QUX9YsgoL9+bADBpBY6SiLvWqnBlLbCEevITmTqmEuY3FoxMKVs1rQ==}
     dependencies:
       acorn: 8.6.0
-      acorn-jsx: 5.3.2_acorn@8.6.0
+      acorn-jsx: 5.3.2
       micromark-extension-mdx-expression: 1.0.3
       micromark-extension-mdx-jsx: 1.0.2
       micromark-extension-mdx-md: 1.0.0
@@ -1926,7 +1925,6 @@ packages:
   /mime/1.6.0:
     resolution: {integrity: sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==}
     engines: {node: '>=4'}
-    hasBin: true
     dev: false
 
   /mimic-response/1.0.1:
@@ -2002,7 +2000,6 @@ packages:
   /mkdirp/1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
     engines: {node: '>=10'}
-    hasBin: true
     dev: true
 
   /morgan/1.10.0:
@@ -2399,7 +2396,6 @@ packages:
 
   /rimraf/3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
-    hasBin: true
     dependencies:
       glob: 7.2.0
     dev: true
@@ -2428,13 +2424,11 @@ packages:
 
   /semver/5.7.1:
     resolution: {integrity: sha512-sauaDf/PZdVgrLTNYHRtpXa1iRiKcaebiKQ1BJdpQlWH2lCvexQdX55snPFyK7QzpudqbCI0qXFfOasHdyNDGQ==}
-    hasBin: true
     dev: true
 
   /semver/7.3.5:
     resolution: {integrity: sha512-PoeGJYh8HK4BTO/a9Tf6ZG3veo/A7ZVsYrSA6J8ny9nb3B1VrpkuN+z9OE5wfE5p6H4LchYZsegiQgbJD94ZFQ==}
     engines: {node: '>=10'}
-    hasBin: true
     dependencies:
       lru-cache: 6.0.0
     dev: true
@@ -2625,7 +2619,6 @@ packages:
   /typescript/4.5.4:
     resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
     engines: {node: '>=4.2.0'}
-    hasBin: true
     dev: true
 
   /unified/10.1.1:
@@ -2736,7 +2729,6 @@ packages:
   /uvu/0.5.2:
     resolution: {integrity: sha512-m2hLe7I2eROhh+tm3WE5cTo/Cv3WQA7Oc9f7JB6uWv+/zVKvfAm53bMyOoGOSZeQ7Ov2Fu9pLhFr7p07bnT20w==}
     engines: {node: '>=8'}
-    hasBin: true
     dependencies:
       dequal: 2.0.2
       diff: 5.0.0
