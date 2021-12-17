@@ -1,15 +1,16 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import { useLoaderData, json, Link, Form, useTransition } from "remix";
 
-import { queryCharacters } from "~/graphql/queries";
-import type { Query } from "~/graphql/types";
+import type { Characters } from "@marcomafessolli/rick-and-morty-gql-files";
+
+import { client } from '~/utils/urql.server';
 
 export let loader: LoaderFunction = async ({ request }) => {
   let url = new URL(request.url);
   let page = url.searchParams.get("page");
 
-  const { data } = await queryCharacters(page);
-  return json(data?.characters);
+  const { characters } = await client.QueryCharacters({ page: parseInt(page || "1") });
+  return json(characters);
 };
 
 export let meta: MetaFunction = () => {
@@ -18,10 +19,8 @@ export let meta: MetaFunction = () => {
   };
 };
 
-type IndexLoaderData = Query['characters'];
-
 export default function Index() {
-  let data = useLoaderData<IndexLoaderData>();
+  let data = useLoaderData<Characters>();
   let transition = useTransition();
   
   if (transition.state === 'submitting') {
@@ -40,9 +39,9 @@ export default function Index() {
       <h2>Characters</h2>
       <ul>
         {characters?.map(character => (
-          <li key={character.id}>
-            <Link to={`/characters/${character.id}`} prefetch="intent">
-              {character.name}
+          <li key={character?.id}>
+            <Link to={`/characters/${character?.id}`} prefetch="intent">
+              {character?.name}
             </Link>
           </li>
         ))}

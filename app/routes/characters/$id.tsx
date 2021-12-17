@@ -3,8 +3,9 @@ import { useLoaderData, json, Link } from "remix";
 
 import { useNavigate } from "remix";
 
-import { queryCharacter } from "~/graphql/queries";
-import type { Query } from "~/graphql/types";
+import { client } from "~/utils/urql.server";
+
+import type { Character } from "@marcomafessolli/rick-and-morty-gql-files";
 
 export let meta: MetaFunction = ({ data, params }) => {
   if (!data) {
@@ -23,21 +24,17 @@ export let meta: MetaFunction = ({ data, params }) => {
 export let loader: LoaderFunction = async ({ params }) => {
   let id = params.id!;
 
-  const { data, error } = await queryCharacter(id);
+  const { character } = await client.QueryCharacter({ id });
     
-  if (data?.character) {
-    return json(data.character);
+  if (character) {
+    return json(character);
   }
 
-  throw new Response(error?.message, {
-    status: 404
-  })
+  throw new Response('Not found', { status: 404 });
 };
 
-type LoaderData = Query['character'];
-
 export default function Index({  }) {
-  let character = useLoaderData<LoaderData>();
+  let character = useLoaderData<Character>();
   let navigate = useNavigate();
 
   return (
