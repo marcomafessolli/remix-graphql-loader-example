@@ -1,6 +1,8 @@
-# Welcome to Remix!
+## Better solution: 
 
-- [Remix Docs](https://remix.run/docs)
+Check https://github.com/thomasheyenbrock/remix-graphql which does a much better job 
+
+---
 
 ## Development
 
